@@ -1,7 +1,7 @@
 {
-  "name": "Stekguiden & Kökstimer",
+  "name": "Stekguiden",
   "short_name": "Stekguiden",
-  "description": "Innertemperaturer och timer med larmsignal",
+  "description": "Rätt innertemperatur & kökstimer med larm",
   "start_url": "/Innertemp/",
   "scope": "/Innertemp/",
   "display": "standalone",
@@ -9,14 +9,14 @@
   "theme_color": "#09090b",
   "icons": [
     {
-      "src": "https://img.icons8.com/color/512/barbecue.png",
-      "sizes": "512x512",
+      "src": "https://img.icons8.com/color/192/barbecue.png",
+      "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "https://img.icons8.com/color/192/barbecue.png",
-      "sizes": "192x192",
+      "src": "https://img.icons8.com/color/512/barbecue.png",
+      "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
     }
