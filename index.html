@@ -79,7 +79,7 @@
                 <input 
                     type="text" 
                     id="searchInput"
-                    placeholder="Sök t.ex. fläskfilé, ryggbiff, lax..." 
+                    placeholder="Sök t.ex. fläskytterfilé, flankstek, lax..." 
                     class="w-full bg-zinc-900 border border-zinc-800 focus:border-amber-500 text-sm rounded-xl pl-9 pr-8 py-2 text-zinc-200 placeholder-zinc-500 outline-none transition duration-150"
                     oninput="handleSearch(this.value)"
                 >
@@ -162,7 +162,7 @@
                         <div class="relative w-7 h-36 bg-zinc-800 rounded-full p-1 border border-zinc-700/60 flex flex-col justify-end shadow-inner">
                             <div id="thermometerFill" class="w-full rounded-full transition-all duration-500 bg-gradient-to-t from-sky-500 via-amber-500 to-red-600" style="height: 50%;"></div>
                             <div class="absolute -bottom-2 -left-1 w-9 h-9 rounded-full bg-red-600 border-2 border-zinc-900 shadow flex items-center justify-center text-xs">
-                                🌡️️
+                                🌡️
                             </div>
                         </div>
                     </div>
@@ -301,6 +301,16 @@
                         ]
                     },
                     {
+                        name: 'Fläskytterfilé (Benfri kotlettrad)',
+                        description: 'Mycket magert kött (egentligen putsad benfri kotlettrad). Kräver precision så det inte torkar.',
+                        chefTip: 'Ta ut vid 66-67°C. Låt vila under smörpapper så den stiger till ca 69°C.',
+                        restMinutes: 10,
+                        levels: [
+                            { label: 'Saftig & mör', temp: 67, range: '66-68°C', recommended: true },
+                            { label: 'Helt genomstekt', temp: 70, range: '70-72°C' }
+                        ]
+                    },
+                    {
                         name: 'Fläskkarré',
                         description: 'Marmorerat kött med rik smak som tål högre temperatur.',
                         chefTip: 'Vid 75°C är den supermör. Vid 93°C smälter den till pulled pork.',
@@ -322,13 +332,33 @@
                         ]
                     },
                     {
-                        name: 'Pluma / Secreto',
-                        description: 'Finstyckdetalj med otrolig marmorering.',
-                        chefTip: 'Serveras bäst med tydlig rosa kärna.',
+                        name: 'Pluma / Secreto Ibérico',
+                        description: 'Spanska finstyckdetaljer med otrolig intramuskulär marmorering.',
+                        chefTip: 'Serveras bäst med tydlig rosa kärna och krispig yta.',
                         restMinutes: 6,
                         levels: [
                             { label: 'Medium (Rosa)', temp: 60, range: '58-62°C', recommended: true },
                             { label: 'Medium-Well', temp: 65, range: '64-67°C' }
+                        ]
+                    },
+                    {
+                        name: 'Tjocka Revbensspjäll / Ribs',
+                        description: 'Långbakas eller grillas low & slow tills köttet lätt släpper från benen.',
+                        chefTip: 'Pensla med glaze sista 15 minuterna på grillen.',
+                        restMinutes: 10,
+                        levels: [
+                            { label: 'Möra revben', temp: 88, range: '85-90°C', recommended: true },
+                            { label: 'Fall-off-the-bone', temp: 93, range: '92-95°C' }
+                        ]
+                    },
+                    {
+                        name: 'Skinkstek / Fläskstek',
+                        description: 'Klassisk söndagsstek, gärna med knaprig svål.',
+                        chefTip: 'Skär i tunna skivor mot fibrerna efter vila.',
+                        restMinutes: 15,
+                        levels: [
+                            { label: 'Lätt rosa', temp: 68, range: '66-68°C' },
+                            { label: 'Välstekt', temp: 72, range: '70-74°C', recommended: true }
                         ]
                     }
                 ]
@@ -373,13 +403,45 @@
                         ]
                     },
                     {
-                        name: 'Högrev (Långkok)',
+                        name: 'Flankstek',
+                        description: 'Långfibrigt och mycket smakrikt kött som är som bäst grillat hårt.',
+                        chefTip: 'Mycket viktigt: Skär tvärs över köttfibrerna i tunna sneda skivor efter vila!',
+                        restMinutes: 10,
+                        levels: [
+                            { label: 'Medium Rare (Optimal)', temp: 54, range: '53-56°C', recommended: true },
+                            { label: 'Medium', temp: 58, range: '57-60°C' }
+                        ]
+                    },
+                    {
+                        name: 'Rostas / Rostasfilé',
+                        description: 'Kallas ofta för "fattigmans oxfilé" tack vare sin fina mörhet och låga fetthalt.',
+                        chefTip: 'Stek snabbt på hög värme och låt vila ordentligt.',
+                        restMinutes: 8,
+                        levels: [
+                            { label: 'Rare', temp: 52, range: '50-53°C' },
+                            { label: 'Medium Rare', temp: 55, range: '54-56°C', recommended: true },
+                            { label: 'Medium', temp: 58, range: '58-60°C' }
+                        ]
+                    },
+                    {
+                        name: 'Rostbiff (Helstek)',
+                        description: 'Klassisk stek för tunna, rosa skivor.',
+                        chefTip: 'Baka i ugn på låg temperatur (100°C) för jämnt resultat rakt igenom.',
+                        restMinutes: 15,
+                        levels: [
+                            { label: 'Röd / Blodig', temp: 53, range: '52-54°C' },
+                            { label: 'Rosa (Klassisk)', temp: 57, range: '56-58°C', recommended: true },
+                            { label: 'Genomstekt', temp: 64, range: '62-66°C' }
+                        ]
+                    },
+                    {
+                        name: 'Högrev / Brisket (Långkok)',
                         description: 'Kollagenrikt kött som förvandlas till ljuvlig saftighet över tid.',
                         chefTip: 'Vid 92-95°C dras köttet isär enkelt med två gafflar.',
                         restMinutes: 20,
                         levels: [
                             { label: 'Mjuk grytbit', temp: 85, range: '82-87°C' },
-                            { label: 'Pulled Beef', temp: 94, range: '92-96°C', recommended: true }
+                            { label: 'Pulled Beef / Brisket', temp: 94, range: '92-96°C', recommended: true }
                         ]
                     }
                 ]
@@ -409,6 +471,15 @@
                             { label: 'Rosa / Saftig', temp: 58, range: '56-60°C', recommended: true },
                             { label: 'Genomstekt', temp: 70, range: '68-72°C' }
                         ]
+                    },
+                    {
+                        name: 'Lammlägg (Bräserad)',
+                        description: 'Långkokas i gryta tills köttet trillar av benet.',
+                        chefTip: 'Sjud under lock på låg temperatur.',
+                        restMinutes: 10,
+                        levels: [
+                            { label: 'Gaffelmör', temp: 88, range: '86-92°C', recommended: true }
+                        ]
                     }
                 ]
             },
@@ -435,6 +506,35 @@
                         levels: [
                             { label: 'Mör & krispig', temp: 80, range: '78-82°C', recommended: true }
                         ]
+                    },
+                    {
+                        name: 'Kycklingvingar / Ben (Hot Wings)',
+                        description: 'Fetare detalj med mycket skinn som tål hög värme för krispig yta.',
+                        chefTip: 'Låt gå till ca 82-84°C så blir köttet löst och lossnar direkt från benet.',
+                        restMinutes: 5,
+                        levels: [
+                            { label: 'Krispiga & möra', temp: 82, range: '80-85°C', recommended: true }
+                        ]
+                    },
+                    {
+                        name: 'Hel Kyckling',
+                        description: 'Mät djupt i lårets tjockaste del mot kroppen utan att träffa benet.',
+                        chefTip: 'Vila i minst 15 minuter innan du skär upp den.',
+                        restMinutes: 15,
+                        levels: [
+                            { label: 'Färdig i lårvecket', temp: 80, range: '78-82°C', recommended: true }
+                        ]
+                    },
+                    {
+                        name: 'Ankbröst (Magret)',
+                        description: 'Knaprigt skinn med rosa saftig kärna.',
+                        chefTip: 'Stek med skinnsidan nedåt på medelvärme så fettet smälter ur.',
+                        restMinutes: 8,
+                        levels: [
+                            { label: 'Medium Rare (Rosa)', temp: 56, range: '55-57°C', recommended: true },
+                            { label: 'Medium', temp: 60, range: '59-62°C' },
+                            { label: 'Välstekt', temp: 68, range: '66-70°C' }
+                        ]
                     }
                 ]
             },
@@ -444,11 +544,12 @@
                 emoji: '🐗',
                 cuts: [
                     {
-                        name: 'Älg / Hjort / Rådjur',
+                        name: 'Älg / Hjort / Rådjur (Filé/Biff)',
                         description: 'Magert kött med fyllig viltsmak.',
                         chefTip: 'Överstig inte 56°C, magert viltkött blir torrt direkt.',
                         restMinutes: 8,
                         levels: [
+                            { label: 'Rare', temp: 52, range: '50-53°C' },
                             { label: 'Medium Rare', temp: 55, range: '54-56°C', recommended: true },
                             { label: 'Medium', temp: 58, range: '57-59°C' }
                         ]
@@ -462,6 +563,15 @@
                             { label: 'Saftig filé', temp: 68, range: '66-69°C', recommended: true },
                             { label: 'Genomstekt', temp: 72, range: '70-74°C' }
                         ]
+                    },
+                    {
+                        name: 'Vildsvinskarré / Stek',
+                        description: 'Saftig och rikare detalj av vildsvin som tål och kräver högre värme.',
+                        chefTip: 'Långbakas gärna till 74-76°C för perfekt mörhet.',
+                        restMinutes: 15,
+                        levels: [
+                            { label: 'Mör & genomstekt', temp: 74, range: '72-76°C', recommended: true }
+                        ]
                     }
                 ]
             },
@@ -471,7 +581,7 @@
                 emoji: '🐟',
                 cuts: [
                     {
-                        name: 'Lax (Filé / Hel sida)',
+                        name: 'Lax (Filébit / Hel sida)',
                         description: 'Fet fisk som är godast när kärnan är sammetslen.',
                         chefTip: 'Vid 48-52°C stannar köttsaften inne och du slipper vita utfällningar.',
                         restMinutes: 4,
@@ -482,13 +592,23 @@
                         ]
                     },
                     {
-                        name: 'Torskrygg',
+                        name: 'Torskrygg / Skrei',
                         description: 'Vit fisk som ska skiva sig fint i lameller.',
                         chefTip: 'Rimma torsken i 10% saltlag 20 minuter innan tillagning.',
                         restMinutes: 3,
                         levels: [
                             { label: 'Skivar sig fint', temp: 48, range: '46-49°C', recommended: true },
                             { label: 'Helt genomstekt', temp: 52, range: '50-54°C' }
+                        ]
+                    },
+                    {
+                        name: 'Hälleflundra / Gös',
+                        description: 'Delikata matfiskar med fast vitt kött.',
+                        chefTip: 'Fisk stiger snabbt på eftervärme – lyft av pannan i tid.',
+                        restMinutes: 4,
+                        levels: [
+                            { label: 'Mjäll & saftig', temp: 48, range: '47-50°C', recommended: true },
+                            { label: 'Fast genomstekt', temp: 52, range: '51-54°C' }
                         ]
                     }
                 ]
