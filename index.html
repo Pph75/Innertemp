@@ -3,12 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Innertemperaturer & Kökstimer</title>
+    
+    <!-- PWA Inställningar & Ikoner -->
     <meta name="theme-color" content="#09090b">
     <meta name="mobile-web-app-capable" content="yes">
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/png" href="https://img.icons8.com/color/192/barbecue.png">
     <link rel="apple-touch-icon" href="https://img.icons8.com/color/192/barbecue.png">
-    <title>Innertemperaturer & Kökstimer</title>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,11 +19,11 @@
     <style>
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
         .font-mono-num {
             font-family: 'JetBrains Mono', monospace;
         }
-        /* Custom scrollbar */
         ::-webkit-scrollbar {
             width: 6px;
             height: 6px;
@@ -71,7 +74,7 @@
                 </div>
             </div>
 
-            <!-- Search input -->
+            <!-- Sökruta -->
             <div class="relative w-full sm:w-80">
                 <input 
                     type="text" 
@@ -94,48 +97,48 @@
 
     <main class="flex-grow max-w-6xl mx-auto w-full px-4 sm:px-6 py-6 space-y-6">
 
-        <!-- Meat category switcher buttons -->
+        <!-- Kategori-knappar -->
         <section>
             <div class="flex items-center justify-between mb-2.5">
                 <h2 class="text-xs font-bold uppercase tracking-wider text-zinc-400">Klicka på ett djur eller råvara</h2>
                 <span id="activeCategoryBadge" class="text-xs text-amber-400 font-medium"></span>
             </div>
             <div id="categoryGrid" class="grid grid-cols-3 sm:grid-cols-6 gap-2 sm:gap-3">
-                <!-- Injected via JS -->
+                <!-- Injiceras via JS -->
             </div>
         </section>
 
-        <!-- Search Results Panel -->
+        <!-- Sökresultat -->
         <section id="searchResultsSection" class="hidden">
             <div class="flex items-center justify-between mb-3">
                 <h2 class="text-sm font-semibold text-zinc-300">Sökresultat</h2>
                 <span id="resultCount" class="text-xs text-zinc-500"></span>
             </div>
             <div id="searchResultsList" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-                <!-- Injected via JS -->
+                <!-- Injiceras via JS -->
             </div>
         </section>
 
         <div id="mainDetailArea" class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
             
-            <!-- Cuts list (Left side) -->
+            <!-- Styckdetaljer (Vänster sida) -->
             <div class="lg:col-span-7 space-y-4">
                 <div class="flex items-center justify-between">
                     <h3 id="currentCategoryTitle" class="text-lg font-bold text-white flex items-center gap-2">
-                        <!-- e.g. 🐷 Gris / Fläskkött -->
+                        <!-- Titel -->
                     </h3>
                     <span id="cutCountLabel" class="text-xs text-zinc-400 bg-zinc-900 border border-zinc-800 px-2.5 py-1 rounded-full font-medium"></span>
                 </div>
 
                 <div id="cutsContainer" class="space-y-3">
-                    <!-- Injected cuts list -->
+                    <!-- Styckdetaljer injiceras här -->
                 </div>
             </div>
 
-            <!-- Temperature card and BEEPING TIMER (Right side) -->
+            <!-- Temperaturkort & Timer (Höger sida) -->
             <div class="lg:col-span-5 space-y-5 lg:sticky lg:top-20">
                 
-                <!-- Target Temperature & Thermometer Visual -->
+                <!-- Termometer & Måltemperatur -->
                 <div class="bg-zinc-900/90 border border-zinc-800 rounded-2xl p-5 glow-ember relative overflow-hidden backdrop-blur-sm">
                     <div class="flex items-center justify-between border-b border-zinc-800/80 pb-3 mb-4">
                         <div>
@@ -147,7 +150,6 @@
                         </span>
                     </div>
 
-                    <!-- Gauge Display -->
                     <div class="flex items-center justify-center gap-6 py-1">
                         <div class="text-center">
                             <div class="flex items-baseline justify-center">
@@ -157,24 +159,21 @@
                             <p id="gaugeRangeSub" class="text-xs text-zinc-400 mt-1">Intervall: --</p>
                         </div>
 
-                        <!-- Vertical visual bar -->
                         <div class="relative w-7 h-36 bg-zinc-800 rounded-full p-1 border border-zinc-700/60 flex flex-col justify-end shadow-inner">
                             <div id="thermometerFill" class="w-full rounded-full transition-all duration-500 bg-gradient-to-t from-sky-500 via-amber-500 to-red-600" style="height: 50%;"></div>
                             <div class="absolute -bottom-2 -left-1 w-9 h-9 rounded-full bg-red-600 border-2 border-zinc-900 shadow flex items-center justify-center text-xs">
-                                🌡️
+                                🌡️️
                             </div>
                         </div>
                     </div>
 
-                    <!-- Doneness selection buttons -->
+                    <!-- Knappar för stekgrader -->
                     <div class="mt-4 pt-4 border-t border-zinc-800">
                         <label class="block text-xs font-medium text-zinc-400 mb-2">Välj stekgrad:</label>
-                        <div id="donenessButtonGroup" class="grid grid-cols-2 sm:grid-cols-3 gap-1.5">
-                            <!-- Dynamic doneness options -->
-                        </div>
+                        <div id="donenessButtonGroup" class="grid grid-cols-2 sm:grid-cols-3 gap-1.5"></div>
                     </div>
 
-                    <!-- Safety & resting summary box -->
+                    <!-- Kockens råd & vila -->
                     <div class="mt-4 bg-zinc-950/70 border border-zinc-800 rounded-xl p-3 text-xs space-y-2">
                         <div class="flex items-start gap-2">
                             <span class="text-amber-400 text-sm">💡</span>
@@ -195,25 +194,25 @@
                     </div>
                 </div>
 
+                <!-- Timer-kort -->
                 <div id="timerCard" class="bg-zinc-900/90 border border-zinc-800 rounded-2xl p-5 backdrop-blur-sm transition-all duration-300">
                     <div class="flex items-center justify-between mb-3">
                         <div class="flex items-center gap-2">
                             <span class="text-lg">⏲️</span>
                             <div>
                                 <h4 class="text-sm font-bold text-zinc-100">Kökstimer med piplarm</h4>
-                                <p class="text-[11px] text-zinc-400">Piper när köttet är klart eller har vilat färdigt</p>
+                                <p class="text-[11px] text-zinc-400">Piper när köttet är klart eller har vilat</p>
                             </div>
                         </div>
                         <span id="timerStatus" class="text-xs px-2.5 py-0.5 rounded-full font-bold bg-zinc-800 text-zinc-400">Redo</span>
                     </div>
 
-                    <!-- Alarm banner when active -->
                     <div id="alarmBanner" class="hidden mb-3 p-3 bg-red-600/30 border border-red-500 rounded-xl flex items-center justify-between animate-bounce">
                         <div class="flex items-center gap-2">
                             <span class="text-2xl animate-spin">🔔</span>
                             <div>
                                 <h5 class="text-xs font-black text-red-200 tracking-wide uppercase">TIDEN ÄR UTE!</h5>
-                                <p class="text-[11px] text-red-300">Timern piper – stäng av larmet nedan.</p>
+                                <p class="text-[11px] text-red-300">Timern piper – stäng av nedan.</p>
                             </div>
                         </div>
                         <button onclick="stopAlarm()" class="px-3 py-1.5 bg-red-500 hover:bg-red-400 text-white font-extrabold text-xs rounded-lg shadow-lg active:scale-95 transition">
@@ -221,38 +220,36 @@
                         </button>
                     </div>
 
-                    <!-- Giant digital countdown display -->
+                    <!-- Digital nedräkning -->
                     <div class="bg-zinc-950 border border-zinc-800 rounded-2xl p-4 text-center my-3 shadow-inner">
                         <div id="timerDisplay" class="text-5xl sm:text-6xl font-extrabold font-mono-num text-amber-400 tracking-wider">
                             10:00
                         </div>
 
-                        <!-- Quick add increment buttons (adds minutes per tap) -->
                         <div class="mt-3.5 pt-3 border-t border-zinc-800/80">
                             <span class="text-[11px] font-bold uppercase tracking-wider text-zinc-400 block mb-2">
                                 Tryck för att plussa på tid (+/tryck)
                             </span>
                             <div class="grid grid-cols-4 gap-2">
-                                <button onclick="adjustTimerMinutes(1)" class="py-2.5 px-2 bg-zinc-800/90 hover:bg-zinc-700 active:scale-95 text-zinc-100 font-bold text-xs sm:text-sm rounded-xl border border-zinc-700/80 transition flex flex-col items-center justify-center shadow-sm">
+                                <button onclick="adjustTimerMinutes(1)" class="py-2.5 px-2 bg-zinc-800/90 hover:bg-zinc-700 active:scale-95 text-zinc-100 font-bold text-xs sm:text-sm rounded-xl border border-zinc-700/80 transition flex flex-col items-center justify-center">
                                     <span class="text-amber-400 font-extrabold text-sm sm:text-base">+1m</span>
                                     <span class="text-[10px] text-zinc-400 font-normal">öka 1 min</span>
                                 </button>
-                                <button onclick="adjustTimerMinutes(5)" class="py-2.5 px-2 bg-gradient-to-b from-amber-500/20 to-zinc-800/90 hover:from-amber-500/30 hover:to-zinc-700 active:scale-95 text-amber-300 font-bold text-xs sm:text-sm rounded-xl border border-amber-500/40 transition flex flex-col items-center justify-center shadow-sm">
+                                <button onclick="adjustTimerMinutes(5)" class="py-2.5 px-2 bg-gradient-to-b from-amber-500/20 to-zinc-800/90 hover:from-amber-500/30 hover:to-zinc-700 active:scale-95 text-amber-300 font-bold text-xs sm:text-sm rounded-xl border border-amber-500/40 transition flex flex-col items-center justify-center">
                                     <span class="text-amber-300 font-extrabold text-sm sm:text-base">+5m</span>
                                     <span class="text-[10px] text-zinc-300 font-normal">öka 5 min</span>
                                 </button>
-                                <button onclick="adjustTimerMinutes(10)" class="py-2.5 px-2 bg-gradient-to-b from-orange-500/25 to-zinc-800/90 hover:from-orange-500/35 hover:to-zinc-700 active:scale-95 text-orange-300 font-bold text-xs sm:text-sm rounded-xl border border-orange-500/40 transition flex flex-col items-center justify-center shadow-sm">
+                                <button onclick="adjustTimerMinutes(10)" class="py-2.5 px-2 bg-gradient-to-b from-orange-500/25 to-zinc-800/90 hover:from-orange-500/35 hover:to-zinc-700 active:scale-95 text-orange-300 font-bold text-xs sm:text-sm rounded-xl border border-orange-500/40 transition flex flex-col items-center justify-center">
                                     <span class="text-orange-300 font-extrabold text-sm sm:text-base">+10m</span>
                                     <span class="text-[10px] text-zinc-300 font-normal">öka 10 min</span>
                                 </button>
-                                <button onclick="adjustTimerMinutes(-1)" class="py-2.5 px-2 bg-zinc-800/60 hover:bg-zinc-700 active:scale-95 text-zinc-400 hover:text-zinc-200 font-bold text-xs sm:text-sm rounded-xl border border-zinc-700/60 transition flex flex-col items-center justify-center shadow-sm">
+                                <button onclick="adjustTimerMinutes(-1)" class="py-2.5 px-2 bg-zinc-800/60 hover:bg-zinc-700 active:scale-95 text-zinc-400 hover:text-zinc-200 font-bold text-xs sm:text-sm rounded-xl border border-zinc-700/60 transition flex flex-col items-center justify-center">
                                     <span class="font-extrabold text-sm sm:text-base text-zinc-300">-1m</span>
                                     <span class="text-[10px] text-zinc-400 font-normal">minska 1 min</span>
                                 </button>
                             </div>
                         </div>
 
-                        <!-- Reset to 0 helper button -->
                         <div class="flex items-center justify-center gap-2 mt-2.5 text-xs text-zinc-500">
                             <span>Vill du nolla tiden?</span>
                             <button onclick="clearTimerToZero()" class="text-amber-400/90 hover:text-amber-300 underline font-semibold transition">
@@ -261,9 +258,8 @@
                         </div>
                     </div>
 
-                    <!-- Main controls -->
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                        <button id="startTimerBtn" onclick="toggleTimer()" class="sm:col-span-2 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-zinc-950 font-black text-sm tracking-wide uppercase transition active:scale-[0.98] shadow-lg shadow-amber-500/20 flex items-center justify-center gap-2">
+                        <button id="startTimerBtn" onclick="toggleTimer()" class="sm:col-span-2 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-zinc-950 font-black text-sm tracking-wide uppercase transition active:scale-[0.98] flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20">
                             <span>▶</span> Starta Timer
                         </button>
                         <button onclick="resetTimer()" class="py-3 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-xs font-bold transition active:scale-[0.98] flex items-center justify-center gap-1.5">
@@ -271,9 +267,8 @@
                         </button>
                     </div>
 
-                    <!-- Test beep button -->
                     <div class="mt-3 pt-3 border-t border-zinc-800/80 flex items-center justify-between text-xs text-zinc-400">
-                        <span>Vill du testa hur larmet låter?</span>
+                        <span>Vill du testa larmet?</span>
                         <button onclick="testBeepSound()" class="px-2.5 py-1 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-300 font-semibold border border-zinc-700/60 transition active:scale-95 flex items-center gap-1.5">
                             🔊 Provpip
                         </button>
@@ -282,34 +277,6 @@
 
             </div>
         </div>
-
-        <section class="mt-8 border-t border-zinc-800/80 pt-6">
-            <h3 class="text-xs font-bold uppercase tracking-wider text-zinc-400 mb-4">Bra tumregler vid mätning & vila</h3>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-                <div class="bg-zinc-900/60 border border-zinc-800/80 rounded-xl p-4">
-                    <div class="text-amber-500 text-lg mb-1">📍 Placering</div>
-                    <h5 class="text-xs font-bold text-white mb-1">Mitt i tjockaste delen</h5>
-                    <p class="text-xs text-zinc-400 leading-relaxed">
-                        Spetsen ska sitta i köttets geometriska centrum. Undvik ben och feta fickor som leder värme ojämnt.
-                    </p>
-                </div>
-                <div class="bg-zinc-900/60 border border-zinc-800/80 rounded-xl p-4">
-                    <div class="text-orange-500 text-lg mb-1">📈 Eftervärme</div>
-                    <h5 class="text-xs font-bold text-white mb-1">Köttet stiger 1–3°C i vila</h5>
-                    <p class="text-xs text-zinc-400 leading-relaxed">
-                        Lyft köttet lite innan måltemperaturen uppnåtts. Låt köttsaften dra sig tillbaka in mot kärnan.
-                    </p>
-                </div>
-                <div class="bg-zinc-900/60 border border-zinc-800/80 rounded-xl p-4">
-                    <div class="text-red-500 text-lg mb-1">🛡️ Livsmedelssäkerhet</div>
-                    <h5 class="text-xs font-bold text-white mb-1">Kyckling & Färs</h5>
-                    <p class="text-xs text-zinc-400 leading-relaxed">
-                        Kyckling och fläskfärsbiffar ska alltid nå minst 70–72°C för att vara helt säkra och fria från bakterier.
-                    </p>
-                </div>
-            </div>
-        </section>
-
     </main>
 
     <footer class="mt-auto border-t border-zinc-900 bg-zinc-950 py-5 text-center text-xs text-zinc-500">
@@ -322,12 +289,11 @@
                 id: 'gris',
                 name: 'Gris / Fläsk',
                 emoji: '🐷',
-                desc: 'Fläskfilé, karré & revben',
                 cuts: [
                     {
                         name: 'Fläskfilé',
-                        description: 'Mör och mycket mager detalj som lätt blir torr om den översteks.',
-                        chefTip: 'Ta ut vid ca 65°C och låt vila i 5-8 minuter så den stiger till 68°C. Köttet är då mjukt och svagt rosa.',
+                        description: 'Mör och mager detalj som lätt blir torr vid överstekning.',
+                        chefTip: 'Ta ut vid ca 65°C och låt vila 5-8 minuter så den stiger till 68°C.',
                         restMinutes: 8,
                         levels: [
                             { label: 'Saftig / Rosa', temp: 65, range: '65-67°C', recommended: true },
@@ -335,9 +301,9 @@
                         ]
                     },
                     {
-                        name: 'Fläskkarré (hel bit / skivad)',
-                        description: 'Generöst marmorerat kött med rik smak som tål högre temperaturer.',
-                        chefTip: 'Vid 75°C är den supermör. Perfekt även för pulled pork runt 93°C då bindväven smälter.',
+                        name: 'Fläskkarré',
+                        description: 'Marmorerat kött med rik smak som tål högre temperatur.',
+                        chefTip: 'Vid 75°C är den supermör. Vid 93°C smälter den till pulled pork.',
                         restMinutes: 10,
                         levels: [
                             { label: 'Saftig grillad', temp: 70, range: '68-72°C' },
@@ -346,9 +312,9 @@
                         ]
                     },
                     {
-                        name: 'Fläskkotlett (med eller utan ben)',
-                        description: 'Klassisk mager detalj. Ska stekas snabbt på hög värme.',
-                        chefTip: 'Gå inte över 70°C. Ta av vid 66°C så förblir köttet saftigt istället för torrt och hårt.',
+                        name: 'Fläskkotlett',
+                        description: 'Klassisk detalj. Stek snabbt på hög värme.',
+                        chefTip: 'Ta av vid 66°C så förblir den saftig istället för torr.',
                         restMinutes: 5,
                         levels: [
                             { label: 'Rosa & mör', temp: 66, range: '65-68°C', recommended: true },
@@ -356,33 +322,13 @@
                         ]
                     },
                     {
-                        name: 'Pluma / Secreto Ibérico',
-                        description: 'Spanska finstyckdetaljer med otrolig marmorering.',
-                        chefTip: 'Serveras bäst med tydlig rosa kärna för rik nötaktig karaktär.',
+                        name: 'Pluma / Secreto',
+                        description: 'Finstyckdetalj med otrolig marmorering.',
+                        chefTip: 'Serveras bäst med tydlig rosa kärna.',
                         restMinutes: 6,
                         levels: [
                             { label: 'Medium (Rosa)', temp: 60, range: '58-62°C', recommended: true },
                             { label: 'Medium-Well', temp: 65, range: '64-67°C' }
-                        ]
-                    },
-                    {
-                        name: 'Skinkstek / Fläskstek',
-                        description: 'Klassisk ugnstekt söndagsstek, gärna med knaprig svål.',
-                        chefTip: 'Skär i tunna skivor mot köttfibrerna efter 15 minuters vila under smörpapper.',
-                        restMinutes: 15,
-                        levels: [
-                            { label: 'Lätt rosa', temp: 68, range: '66-68°C' },
-                            { label: 'Välstekt', temp: 72, range: '70-74°C', recommended: true }
-                        ]
-                    },
-                    {
-                        name: 'Tjocka revbensspjäll / Ribs',
-                        description: 'Långkokas eller grillas low & slow tills köttet lossnar från benet.',
-                        chefTip: 'Pensla med glace i flera lager mot slutet av tillagningen.',
-                        restMinutes: 10,
-                        levels: [
-                            { label: 'Möra revben', temp: 88, range: '85-90°C', recommended: true },
-                            { label: 'Fall-off-the-bone', temp: 93, range: '92-95°C' }
                         ]
                     }
                 ]
@@ -391,15 +337,14 @@
                 id: 'not',
                 name: 'Nöt / Oxe',
                 emoji: '🐮',
-                desc: 'Oxfilé, entrecôte & ryggbiff',
                 cuts: [
                     {
                         name: 'Oxfilé',
-                        description: 'Det möraste köttet med mild och fin smak.',
-                        chefTip: 'Överstig inte 56-58°C för finaste konsistens. Salta gärna 30 min före tillagning.',
+                        description: 'Det möraste köttet med mild smak.',
+                        chefTip: 'Överstig inte 56-58°C för finaste konsistens.',
                         restMinutes: 10,
                         levels: [
-                            { label: 'Rare (Blodig)', temp: 50, range: '48-52°C' },
+                            { label: 'Rare', temp: 50, range: '48-52°C' },
                             { label: 'Medium Rare', temp: 55, range: '54-56°C', recommended: true },
                             { label: 'Medium', temp: 58, range: '58-60°C' },
                             { label: 'Välstekt', temp: 68, range: '66-70°C' }
@@ -407,19 +352,19 @@
                     },
                     {
                         name: 'Entrecôte',
-                        description: 'Marmorering och fettöga ger överlägsen smak vid hög värme.',
-                        chefTip: 'Mår bäst av minst 56-58°C så att det insprängda fettet smälter ordentligt.',
+                        description: 'Marmorering och fettöga ger suverän smak vid grillning.',
+                        chefTip: 'Mår bäst runt 56-58°C så att det insprängda fettet smälter helt.',
                         restMinutes: 8,
                         levels: [
                             { label: 'Medium Rare', temp: 55, range: '54-56°C' },
-                            { label: 'Medium (Optimalt fett)', temp: 57, range: '56-58°C', recommended: true },
+                            { label: 'Medium (Optimalt)', temp: 57, range: '56-58°C', recommended: true },
                             { label: 'Medium-Well', temp: 62, range: '60-64°C' }
                         ]
                     },
                     {
                         name: 'Ryggbiff',
                         description: 'Rejäl biff med fast textur och tydlig fettkappa.',
-                        chefTip: 'Snitta fettkappan i kryssmönster så att biffen ligger plant i pannan.',
+                        chefTip: 'Snitta fettkappan så böjer sig inte biffen under stekning.',
                         restMinutes: 7,
                         levels: [
                             { label: 'Medium Rare', temp: 54, range: '52-55°C', recommended: true },
@@ -428,24 +373,13 @@
                         ]
                     },
                     {
-                        name: 'Högrev / Brisket (Långkok)',
-                        description: 'Kollagenrikt kött som förvandlas till ljuvlig saftighet under lång tid.',
-                        chefTip: 'Vid 92-95°C är köttet så mjukt att det kan dras isär med två gafflar.',
+                        name: 'Högrev (Långkok)',
+                        description: 'Kollagenrikt kött som förvandlas till ljuvlig saftighet över tid.',
+                        chefTip: 'Vid 92-95°C dras köttet isär enkelt med två gafflar.',
                         restMinutes: 20,
                         levels: [
                             { label: 'Mjuk grytbit', temp: 85, range: '82-87°C' },
-                            { label: 'Brisket / Pulled Beef', temp: 94, range: '92-96°C', recommended: true }
-                        ]
-                    },
-                    {
-                        name: 'Rostbiff (Helstek)',
-                        description: 'Klassisk stek som skärs i tunna, jämnt rosa skivor.',
-                        chefTip: 'Baka i ugn på låg värme (100-110°C) för att undvika grå kant runt köttet.',
-                        restMinutes: 15,
-                        levels: [
-                            { label: 'Röd / Blodig', temp: 53, range: '52-54°C' },
-                            { label: 'Rosa (Klassisk)', temp: 57, range: '56-58°C', recommended: true },
-                            { label: 'Genomstekt', temp: 64, range: '62-66°C' }
+                            { label: 'Pulled Beef', temp: 94, range: '92-96°C', recommended: true }
                         ]
                     }
                 ]
@@ -454,12 +388,11 @@
                 id: 'lamm',
                 name: 'Lamm',
                 emoji: '🐑',
-                desc: 'Racks, lammstek & kotlett',
                 cuts: [
                     {
-                        name: 'Lammracks / Kotletter',
-                        description: 'Mört, elegant och underbart gott med vitlök och örter.',
-                        chefTip: 'Bryn hårt i pannan och baka klart till 55-56°C för perfekt saftigt resultat.',
+                        name: 'Lammracks',
+                        description: 'Mört, elegant och gott med rosmarin och vitlök.',
+                        chefTip: 'Bryn hårt och baka till 55-56°C för saftigt resultat.',
                         restMinutes: 6,
                         levels: [
                             { label: 'Medium Rare', temp: 55, range: '54-56°C', recommended: true },
@@ -468,23 +401,13 @@
                         ]
                     },
                     {
-                        name: 'Lammstek (med eller utan ben)',
-                        description: 'Klassikern till höstmiddagar och påskbuffén.',
-                        chefTip: 'Vid 58°C är steken saftigt rosa utan att vara rå eller torr.',
+                        name: 'Lammstek',
+                        description: 'Klassikern för fest och söndagsmiddagar.',
+                        chefTip: 'Vid 58°C är steken saftigt rosa utan att vara rå.',
                         restMinutes: 15,
                         levels: [
                             { label: 'Rosa / Saftig', temp: 58, range: '56-60°C', recommended: true },
-                            { label: 'Lätt rosa', temp: 64, range: '62-65°C' },
-                            { label: 'Välstekt', temp: 70, range: '68-72°C' }
-                        ]
-                    },
-                    {
-                        name: 'Lammlägg (Bräserad)',
-                        description: 'Långkokas i rött vin och buljong tills köttet släpper benet.',
-                        chefTip: 'Låt sjuda stilla under lock på låg temperatur.',
-                        restMinutes: 10,
-                        levels: [
-                            { label: 'Gaffelmör', temp: 88, range: '86-92°C', recommended: true }
+                            { label: 'Genomstekt', temp: 70, range: '68-72°C' }
                         ]
                     }
                 ]
@@ -493,12 +416,11 @@
                 id: 'fagel',
                 name: 'Fågel / Kyckling',
                 emoji: '🐔',
-                desc: 'Bröstfilé, lår & hel fågel',
                 cuts: [
                     {
                         name: 'Kycklingbröstfilé',
-                        description: 'Mager och känslig bit. Måste bli livsmedelssäker utan att torka.',
-                        chefTip: '70-72°C i tjockaste delen eliminerar alla bakterier samtidigt som köttet är maximalt saftigt.',
+                        description: 'Mager och mör bit som ska vara helt säker.',
+                        chefTip: '70-72°C i tjockaste delen eliminerar bakterier och håller den saftig.',
                         restMinutes: 6,
                         levels: [
                             { label: 'Saftig & säker', temp: 70, range: '70-72°C', recommended: true },
@@ -506,33 +428,12 @@
                         ]
                     },
                     {
-                        name: 'Kycklinglårfilé / Klubba',
-                        description: 'Mer fett och bindväv som mår bra av högre temperatur än bröstet.',
-                        chefTip: 'Blir mycket mörare och godare runt 78-82°C än vid lägre temperaturer.',
+                        name: 'Kycklinglårfilé',
+                        description: 'Mer bindväv som mår bäst av högre temperatur än bröstet.',
+                        chefTip: 'Blir extremt mör och god runt 78-82°C.',
                         restMinutes: 8,
                         levels: [
-                            { label: 'Säker', temp: 75, range: '73-76°C' },
-                            { label: 'Supermör & krispig', temp: 80, range: '78-82°C', recommended: true }
-                        ]
-                    },
-                    {
-                        name: 'Hel kyckling',
-                        description: 'Mät vid lårets innersta tjocka del mot skrovet utan att nudda ben.',
-                        chefTip: 'Vila i 15 minuter före tranchering så hålls saften kvar.',
-                        restMinutes: 15,
-                        levels: [
-                            { label: 'Färdig i lårvecket', temp: 80, range: '78-82°C', recommended: true }
-                        ]
-                    },
-                    {
-                        name: 'Ankbröst (Magret)',
-                        description: 'Serveras traditionellt med knaprigt skinn och en rosa saftig kärna.',
-                        chefTip: 'Skåra skinnet, bryn på medelvärme så fettet rinner ur. Gå klart i ugn på 140°C.',
-                        restMinutes: 8,
-                        levels: [
-                            { label: 'Medium Rare (Rosa)', temp: 56, range: '55-57°C', recommended: true },
-                            { label: 'Medium', temp: 60, range: '59-62°C' },
-                            { label: 'Välstekt', temp: 68, range: '66-70°C' }
+                            { label: 'Mör & krispig', temp: 80, range: '78-82°C', recommended: true }
                         ]
                     }
                 ]
@@ -541,37 +442,25 @@
                 id: 'vilt',
                 name: 'Vilt / Vildsvin',
                 emoji: '🐗',
-                desc: 'Älg, hjort, rådjur & vildsvin',
                 cuts: [
                     {
-                        name: 'Älg / Rådjur / Hjort (Filé & Biff)',
-                        description: 'Extremt magert kött med djup, delikat viltkaraktär.',
-                        chefTip: 'Överstig ALDRIG 56°C! Viltkött blir torrt och får snabbt en leverartad smak vid för hög värme.',
+                        name: 'Älg / Hjort / Rådjur',
+                        description: 'Magert kött med fyllig viltsmak.',
+                        chefTip: 'Överstig inte 56°C, magert viltkött blir torrt direkt.',
                         restMinutes: 8,
                         levels: [
-                            { label: 'Rare (Blodig)', temp: 52, range: '50-53°C' },
-                            { label: 'Medium Rare (Optimal)', temp: 55, range: '54-56°C', recommended: true },
+                            { label: 'Medium Rare', temp: 55, range: '54-56°C', recommended: true },
                             { label: 'Medium', temp: 58, range: '57-59°C' }
                         ]
                     },
                     {
-                        name: 'Viltstek (Älg/Hjort)',
-                        description: 'Klassisk festmåltid. Utmärkt även till tjälknöl.',
-                        chefTip: 'Låg ugnstemperatur (80-100°C) garanterar en jämnt rosa snittyta.',
-                        restMinutes: 15,
-                        levels: [
-                            { label: 'Rosa & saftig', temp: 56, range: '55-58°C', recommended: true },
-                            { label: 'Lätt rosa', temp: 62, range: '60-64°C' }
-                        ]
-                    },
-                    {
-                        name: 'Vildsvin (Filé / Karré)',
-                        description: 'Vildsvinskött ska alltid vara trikintestat och tillagas likt tamgris.',
-                        chefTip: 'Karrén blir fantastisk vid 72-74°C, medan filén är saftigast runt 67°C.',
+                        name: 'Vildsvinsfilé',
+                        description: 'Vildsvin ska alltid tillagas säkert likt tamgris.',
+                        chefTip: 'Filén är som saftigast runt 67-68°C.',
                         restMinutes: 10,
                         levels: [
                             { label: 'Saftig filé', temp: 68, range: '66-69°C', recommended: true },
-                            { label: 'Genomstekt (Karré/Stek)', temp: 72, range: '70-74°C' }
+                            { label: 'Genomstekt', temp: 72, range: '70-74°C' }
                         ]
                     }
                 ]
@@ -580,37 +469,26 @@
                 id: 'fisk',
                 name: 'Fisk & Lax',
                 emoji: '🐟',
-                desc: 'Lax, torskrygg & vit fisk',
                 cuts: [
                     {
-                        name: 'Lax (Hel sida / Filébit)',
-                        description: 'Fet och smakrik fisk som är godast när kärnan är mjuk och krämig.',
-                        chefTip: 'Vid 48-52°C stannar proteinet inne och fisken förblir saftig utan vita proteinutfällningar.',
+                        name: 'Lax (Filé / Hel sida)',
+                        description: 'Fet fisk som är godast när kärnan är sammetslen.',
+                        chefTip: 'Vid 48-52°C stannar köttsaften inne och du slipper vita utfällningar.',
                         restMinutes: 4,
                         levels: [
                             { label: 'Krämig kärna', temp: 48, range: '46-49°C' },
                             { label: 'Perfekt saftig', temp: 52, range: '50-53°C', recommended: true },
-                            { label: 'Helt genomstekt', temp: 56, range: '55-58°C' }
+                            { label: 'Genomstekt', temp: 56, range: '55-58°C' }
                         ]
                     },
                     {
-                        name: 'Torskrygg / Skrei',
-                        description: 'Fin vit fisk som ska skiva sig i vackra lameller vid lätt tryck.',
-                        chefTip: 'Rimma torsken i 10% saltlag i 20 minuter före bakning för fast och fin textur.',
+                        name: 'Torskrygg',
+                        description: 'Vit fisk som ska skiva sig fint i lameller.',
+                        chefTip: 'Rimma torsken i 10% saltlag 20 minuter innan tillagning.',
                         restMinutes: 3,
                         levels: [
-                            { label: 'Skivar sig perfekt', temp: 48, range: '46-49°C', recommended: true },
+                            { label: 'Skivar sig fint', temp: 48, range: '46-49°C', recommended: true },
                             { label: 'Helt genomstekt', temp: 52, range: '50-54°C' }
-                        ]
-                    },
-                    {
-                        name: 'Hälleflundra / Gös',
-                        description: 'Delikata matfiskar som passar utmärkt med brynt smör och pepparrot.',
-                        chefTip: 'Fisk stiger snabbt på eftervärme – ta av stekpannan i god tid.',
-                        restMinutes: 4,
-                        levels: [
-                            { label: 'Mjäll & saftig', temp: 48, range: '47-50°C', recommended: true },
-                            { label: 'Fast genomstekt', temp: 52, range: '51-54°C' }
                         ]
                     }
                 ]
@@ -621,13 +499,11 @@
         let currentCutIndex = 0;
         let currentLevelIndex = 0;
 
-        // Timer State
-        let timerSeconds = 600; // 10 minutes default
+        let timerSeconds = 600;
         let initialTimerSeconds = 600;
         let timerInterval = null;
         let isTimerRunning = false;
 
-        // Beep Audio Alarm State (Web Audio API)
         let audioCtx = null;
         let alarmInterval = null;
         let isAlarmActive = false;
@@ -643,7 +519,6 @@
             return audioCtx;
         }
 
-        // Play a single crisp electronic beep (like a real digital kitchen timer)
         function playSingleBeep(freq = 920, duration = 0.09, type = 'square', timeOffset = 0) {
             try {
                 const ctx = getAudioContext();
@@ -654,7 +529,6 @@
                 osc.type = type;
                 osc.frequency.setValueAtTime(freq, startTime);
 
-                // Quick attack and release to sound like a digital piezo buzzer
                 gain.gain.setValueAtTime(0.001, startTime);
                 gain.gain.linearRampToValueAtTime(0.25, startTime + 0.01);
                 gain.gain.setValueAtTime(0.25, startTime + duration - 0.015);
@@ -665,14 +539,10 @@
 
                 osc.start(startTime);
                 osc.stop(startTime + duration);
-            } catch (err) {
-                console.error("Audio error:", err);
-            }
+            } catch (err) {}
         }
 
-        // Standard digital pattern: BEEP - BEEP - BEEP - BEEP
         function playAlarmBurst() {
-            // 4 fast beeps per cycle
             playSingleBeep(980, 0.08, 'square', 0.0);
             playSingleBeep(980, 0.08, 'square', 0.14);
             playSingleBeep(980, 0.08, 'square', 0.28);
@@ -689,17 +559,12 @@
 
             card.classList.add('alarm-active');
             banner.classList.remove('hidden');
-            status.textContent = 'LARM AKTIVT!';
+            status.textContent = 'LARM!';
             status.className = 'text-xs px-2.5 py-0.5 rounded-full font-bold bg-red-600 text-white animate-pulse';
 
-            // Play immediate burst
             playAlarmBurst();
-
-            // Repeat every 1.1 second until dismissed
             alarmInterval = setInterval(() => {
-                if (isAlarmActive) {
-                    playAlarmBurst();
-                }
+                if (isAlarmActive) playAlarmBurst();
             }, 1100);
         }
 
@@ -722,17 +587,10 @@
 
         function testBeepSound() {
             getAudioContext();
-            // Test 3 fast beeps
             playSingleBeep(940, 0.08, 'square', 0.0);
             playSingleBeep(940, 0.08, 'square', 0.15);
             playSingleBeep(940, 0.08, 'square', 0.30);
         }
-
-        window.addEventListener('DOMContentLoaded', () => {
-            renderCategoryGrid();
-            selectCategory('gris', 0);
-            updateTimerDisplay();
-        });
 
         function renderCategoryGrid() {
             const grid = document.getElementById('categoryGrid');
@@ -828,12 +686,10 @@
                             <span class="block text-[10px] text-zinc-500 uppercase tracking-wider">Måltemp</span>
                         </div>
                     </div>
-
                     <div class="mt-3 flex flex-wrap gap-1.5 items-center">
                         ${badgesHtml}
                     </div>
                 `;
-
                 container.appendChild(card);
             });
         }
@@ -852,14 +708,12 @@
             document.getElementById('gaugeChefTip').textContent = cut.chefTip;
             document.getElementById('gaugeRestTimeText').textContent = `${cut.restMinutes} minuter`;
 
-            // Thermometer bar fill
             const minScale = 40;
             const maxScale = 100;
             const clampedTemp = Math.min(Math.max(level.temp, minScale), maxScale);
             const percentage = ((clampedTemp - minScale) / (maxScale - minScale)) * 100;
             document.getElementById('thermometerFill').style.height = `${percentage}%`;
 
-            // Render Doneness Buttons
             const btnGroup = document.getElementById('donenessButtonGroup');
             btnGroup.innerHTML = '';
 
@@ -892,7 +746,6 @@
             const cut = category.cuts[currentCutIndex];
             if (cut && cut.restMinutes) {
                 setTimerPreset(cut.restMinutes);
-                // Highlight timer container smoothly
                 const timerEl = document.getElementById('timerCard');
                 timerEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
@@ -916,21 +769,17 @@
             const status = document.getElementById('timerStatus');
 
             if (isTimerRunning) {
-                // Pause timer
                 clearInterval(timerInterval);
                 isTimerRunning = false;
                 btn.innerHTML = '<span>▶</span> Fortsätt Timer';
-                btn.className = 'sm:col-span-2 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-zinc-950 font-black text-sm tracking-wide uppercase transition active:scale-[0.98] shadow-lg shadow-amber-500/20 flex items-center justify-center gap-2';
+                btn.className = 'sm:col-span-2 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-zinc-950 font-black text-sm tracking-wide uppercase transition active:scale-[0.98] flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20';
                 status.textContent = 'Pausad';
                 status.className = 'text-xs px-2.5 py-0.5 rounded-full font-bold bg-amber-500/20 text-amber-400 border border-amber-500/30';
             } else {
-                // Start or Resume
-                if (timerSeconds <= 0) {
-                    timerSeconds = initialTimerSeconds > 0 ? initialTimerSeconds : 600;
-                }
+                if (timerSeconds <= 0) timerSeconds = initialTimerSeconds > 0 ? initialTimerSeconds : 600;
                 isTimerRunning = true;
                 btn.innerHTML = '<span>⏸</span> Pausa Timer';
-                btn.className = 'sm:col-span-2 py-3 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-black text-sm tracking-wide uppercase transition active:scale-[0.98] shadow-lg shadow-orange-600/20 flex items-center justify-center gap-2';
+                btn.className = 'sm:col-span-2 py-3 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-black text-sm tracking-wide uppercase transition active:scale-[0.98] flex items-center justify-center gap-2 shadow-lg shadow-orange-600/20';
                 status.textContent = 'Räknar ner...';
                 status.className = 'text-xs px-2.5 py-0.5 rounded-full font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 animate-pulse';
 
@@ -938,17 +787,12 @@
                     if (timerSeconds > 0) {
                         timerSeconds--;
                         updateTimerDisplay();
-                        
-                        // Subtle tick beep during last 3 seconds
-                        if (timerSeconds <= 3 && timerSeconds > 0) {
-                            playSingleBeep(700, 0.04, 'sine', 0);
-                        }
+                        if (timerSeconds <= 3 && timerSeconds > 0) playSingleBeep(700, 0.04, 'sine', 0);
                     } else {
-                        // ZERO REACHED! FIRE CONTINUOUS BEEP ALARM
                         clearInterval(timerInterval);
                         isTimerRunning = false;
                         btn.innerHTML = '<span>▶</span> Starta Timer';
-                        btn.className = 'sm:col-span-2 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-zinc-950 font-black text-sm tracking-wide uppercase transition active:scale-[0.98] shadow-lg shadow-amber-500/20 flex items-center justify-center gap-2';
+                        btn.className = 'sm:col-span-2 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-zinc-950 font-black text-sm tracking-wide uppercase transition active:scale-[0.98] flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20';
                         startContinuousAlarm();
                     }
                 }, 1000);
@@ -958,7 +802,6 @@
         function adjustTimerMinutes(minutes) {
             stopAlarm();
             const deltaSec = minutes * 60;
-            // Allow adding time even while running; clamp minimum to 0 seconds
             timerSeconds = Math.max(0, timerSeconds + deltaSec);
             initialTimerSeconds = timerSeconds;
 
@@ -968,8 +811,6 @@
                 status.className = 'text-xs px-2.5 py-0.5 rounded-full font-bold bg-zinc-800 text-zinc-300';
             }
             updateTimerDisplay();
-
-            // Provide short confirmation click beep
             getAudioContext();
             playSingleBeep(minutes > 0 ? 1050 : 600, 0.04, 'sine', 0);
         }
@@ -981,7 +822,7 @@
                 isTimerRunning = false;
                 const btn = document.getElementById('startTimerBtn');
                 btn.innerHTML = '<span>▶</span> Starta Timer';
-                btn.className = 'sm:col-span-2 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-zinc-950 font-black text-sm tracking-wide uppercase transition active:scale-[0.98] shadow-lg shadow-amber-500/20 flex items-center justify-center gap-2';
+                btn.className = 'sm:col-span-2 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-zinc-950 font-black text-sm tracking-wide uppercase transition active:scale-[0.98] flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20';
             }
             timerSeconds = 0;
             initialTimerSeconds = 0;
@@ -998,7 +839,7 @@
                 isTimerRunning = false;
                 const btn = document.getElementById('startTimerBtn');
                 btn.innerHTML = '<span>▶</span> Starta Timer';
-                btn.className = 'sm:col-span-2 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-zinc-950 font-black text-sm tracking-wide uppercase transition active:scale-[0.98] shadow-lg shadow-amber-500/20 flex items-center justify-center gap-2';
+                btn.className = 'sm:col-span-2 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-zinc-950 font-black text-sm tracking-wide uppercase transition active:scale-[0.98] flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20';
             }
             timerSeconds = minutes * 60;
             initialTimerSeconds = timerSeconds;
@@ -1015,7 +856,7 @@
                 isTimerRunning = false;
                 const btn = document.getElementById('startTimerBtn');
                 btn.innerHTML = '<span>▶</span> Starta Timer';
-                btn.className = 'sm:col-span-2 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-zinc-950 font-black text-sm tracking-wide uppercase transition active:scale-[0.98] shadow-lg shadow-amber-500/20 flex items-center justify-center gap-2';
+                btn.className = 'sm:col-span-2 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-zinc-950 font-black text-sm tracking-wide uppercase transition active:scale-[0.98] flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20';
             }
             timerSeconds = initialTimerSeconds;
             const status = document.getElementById('timerStatus');
@@ -1066,11 +907,7 @@
             resultCount.textContent = `${matches.length} träffar`;
 
             if (matches.length === 0) {
-                resultsList.innerHTML = `
-                    <div class="col-span-full py-8 text-center text-zinc-500 text-sm">
-                        Inga styckdetaljer matchade "${query}". Prova t.ex. "gris", "fläskfilé", "kyckling" eller "ryggbiff".
-                    </div>
-                `;
+                resultsList.innerHTML = `<div class="col-span-full py-8 text-center text-zinc-500 text-sm">Inga träffar.</div>`;
                 return;
             }
 
@@ -1080,7 +917,8 @@
                 const card = document.createElement('div');
                 card.className = 'bg-zinc-900/90 border border-zinc-800 hover:border-amber-500/70 p-3.5 rounded-xl cursor-pointer transition active:scale-95 group';
                 card.onclick = () => {
-                    selectSearchResult(item.categoryId, item.cutIndex);
+                    clearSearch();
+                    selectCategory(item.categoryId, item.cutIndex);
                 };
 
                 card.innerHTML = `
@@ -1095,11 +933,6 @@
             });
         }
 
-        function selectSearchResult(categoryId, cutIdx) {
-            clearSearch();
-            selectCategory(categoryId, cutIdx);
-        }
-
         function clearSearch() {
             const input = document.getElementById('searchInput');
             input.value = '';
@@ -1112,13 +945,23 @@
             clearSearch();
             selectCategory('gris', 0);
             window.scrollTo({ top: 0, behavior: 'smooth' });
-        </script>
-   <script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('sw.js');
-    });
-  }
-</script>
+        }
+
+        // Kör igång appen direkt vid start
+        window.addEventListener('DOMContentLoaded', () => {
+            renderCategoryGrid();
+            selectCategory('gris', 0);
+            updateTimerDisplay();
+        });
+    </script>
+
+    <!-- Service Worker för PWA-stöd -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('sw.js');
+        });
+      }
+    </script>
 </body>
 </html>
